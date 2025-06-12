@@ -13,7 +13,7 @@ def main():
     # Default Pin
     pin = "7209"
     #Short Code Input
-    code = input("Enter: ")
+    code = input("Enter Short Code: ")
     #Changing Balance
     balance = main_menu(code,balance,pin)
     return
@@ -36,7 +36,7 @@ def main_menu(code,balance,pin):
             elif choice == "3":
                 balance = cash_out(balance, pin)
             elif choice == "4":
-                balance = my_wallet(balance, pin)
+                balance = my_wallet(balance)
             else:
                 print("Invalid Choice")
 
@@ -127,21 +127,34 @@ def buy_airtime_or_bundles(balance):
         if bundle_type == "1":
             new_balance_2 = balance - 5
 
-            print("280 MB Data Bundle successfully purchased")
-            print(f"New balance: GHS{new_balance_2:.2f}")
-            return new_balance_2
+            if new_balance_2 <= balance:
+                print("280 MB Data Bundle successfully purchased")
+                print(f"New balance: GHS{new_balance_2:.2f}")
+                return new_balance_2
+            else:
+                print("Insufficient Amount")
+                return balance
 
         elif bundle_type == "2":
             new_balance_2 = balance - 10
-            print("667 MB Data Bundle successfully purchased")
-            print(f"New balance: GHS{new_balance_2:.2f}")
-            return new_balance_2
+
+            if new_balance_2 <= balance:
+                print("667 MB Data Bundle successfully purchased")
+                print(f"New balance: GHS{new_balance_2:.2f}")
+                return new_balance_2
+            else:
+                print("Insufficient Amount")
+                return balance
 
         elif bundle_type == "3":
             new_balance_2 = balance - 100
-            print("10 GB Data Bundle successfully purchased")
-            print(f"New balance: GHS{new_balance_2:.2f}")
-            return new_balance_2
+
+            if new_balance_2 <= balance:
+                print("10 GB Data Bundle successfully purchased")
+                print(f"New balance: GHS{new_balance_2:.2f}")
+                return new_balance_2
+            else:
+                print("Insufficient Amount")
 
         else:
             print("Invalid Bundle Type Inputted")
@@ -163,15 +176,19 @@ def cash_out(balance, pin):
     if allow_cashout == "1":
         cashout_amount = float(input("Enter the amount to allow for Cash Out: "))
         user_pin = input("Enter your 4-digit PIN: ")
-        if user_pin == pin:
-            new_balance_3 = balance - cashout_amount
-            print("Cash Out Successfully allowed")
-            print(f"New balance: GHS{new_balance_3:.2f}")
-            return new_balance_3
+        if cashout_amount <= balance:
+            if user_pin == pin:
+                new_balance_3 = balance - cashout_amount
+                print("Cash Out Successfully allowed")
+                print(f"New balance: GHS{new_balance_3:.2f}")
+                return new_balance_3
 
+            else:
+                print("Incorrect Pin")
+                new_balance_3 = balance
         else:
-            print("Incorrect Pin")
-            new_balance_3 = balance
+            print("Insufficient Amount")
+            return balance
 
     elif allow_cashout == "2":
         print("Thank you for using Telestar Mobile Money!")
@@ -183,7 +200,7 @@ def cash_out(balance, pin):
 
     return new_balance_3
 
-def my_wallet(balance, pin):
+def my_wallet(balance):
     print("My Wallet:")
     print("1. Top Up Balance")
     print("2. Check Balance")
