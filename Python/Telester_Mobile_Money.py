@@ -41,7 +41,7 @@ def main_menu(code,balance,pin):
                 print("Invalid Choice")
 
             again = input("Do you want to perform another operation? (yes/no): ").lower()
-            if again != "yes":
+            if again != "yes" or "y":
                 print("Thank you for using Telestar Mobile Money!")
                 break
     else:
@@ -66,9 +66,13 @@ def transfer_money(balance):
 
         new_balance = balance - (transfer_amount + e_levy + service_charge)
 
-        print(f'GHS{transfer_amount:.2f} has been sent successfuly with an E-levy charge of GHS{e_levy}')
-        print(f'The service charge is GHS{service_charge:.2f}.')
-        print(f'New Balance: GHS{new_balance:.2f}')
+        if new_balance <= balance:
+            print(f'GHS{transfer_amount:.2f} has been sent successfuly with an E-levy charge of GHS{e_levy}')
+            print(f'The service charge is GHS{service_charge:.2f}.')
+            print(f'New Balance: GHS{new_balance:.2f}')
+        else:
+            print("Insufficient Amount")
+            return balance
 
     elif network_choice == "2":
         recipient_num = input ("Enter the recipient's phone number")
@@ -80,9 +84,13 @@ def transfer_money(balance):
 
         new_balance = balance - (transfer_amount + e_levy + service_charge)
 
-        print(f'GHS{transfer_amount:.2f} has been sent successfuly with an E-levy charge of GHS{e_levy}')
-        print(f'The service charge is GHS{service_charge:.2f}.')
-        print(f'New Balance: GHS{new_balance:.2f}')
+        if new_balance <= balance:
+            print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy}')
+            print(f'The service charge is GHS{service_charge:.2f}.')
+            print(f'New Balance: GHS{new_balance:.2f}')
+        else:
+            print("Insufficient Amount")
+            return balance
     else:
         print("Invalid network choice")
         return balance
@@ -90,40 +98,110 @@ def transfer_money(balance):
     return new_balance
 
 
-
 def buy_airtime_or_bundles(balance):
-    pass
+    print("Airtime and Bundles:")
+    print("1. Buy Airtime")
+    print("2. Buy Bundles")
+
+    airtime_or_bundle = input("Enter your choice: ")
+
+    if airtime_or_bundle == "1":
+        airtime_amount = float(input("Enter the amount to purchase: "))
+        new_balance_2 = balance - airtime_amount
+
+        if new_balance_2 <= balance:
+            print(f'GHS{airtime_amount:.2f} airtime has been successfully purchased')
+            print(f"New balance: GHS{new_balance_2}")
+        else:
+            print("Insufficient Amount")
+            return balance
+
+    elif airtime_or_bundle == "2":
+        print("Bundles:")
+        print("1. GHS 5(280 MB)")
+        print("2. GHS 10(667 MB")
+        print("3. GHS 100(10GB)")
+
+        bundle_type = input("Choose your bundle type: ")
+
+        if bundle_type == "1":
+            new_balance_2 = balance - 5
+
+            print("280 MB Data Bundle successfully purchased")
+            print(f"New balance: GHS{new_balance_2:.2f}")
+            return new_balance_2
+
+        elif bundle_type == "2":
+            new_balance_2 = balance - 10
+            print("667 MB Data Bundle successfully purchased")
+            print(f"New balance: GHS{new_balance_2:.2f}")
+            return new_balance_2
+
+        elif bundle_type == "3":
+            new_balance_2 = balance - 100
+            print("10 GB Data Bundle successfully purchased")
+            print(f"New balance: GHS{new_balance_2:.2f}")
+            return new_balance_2
+
+        else:
+            print("Invalid Bundle Type Inputted")
+            new_balance_2 = balance
+
+    else:
+        print("Invalid Choice")
+        return balance
+
+    return new_balance_2
+
 
 def cash_out(balance, pin):
-    pass
+    print("Allow CashOUt:")
+    print("1. Yes")
+    print("2. No")
+    allow_cashout = input("Enter your choice: ")
+
+    if allow_cashout == "1":
+        cashout_amount = float(input("Enter the amount to allow for Cash Out: "))
+        user_pin = input("Enter your 4-digit PIN: ")
+        if user_pin == pin:
+            new_balance_3 = balance - cashout_amount
+            print("Cash Out Successfully allowed")
+            print(f"New balance: GHS{new_balance_3:.2f}")
+            return new_balance_3
+
+        else:
+            print("Incorrect Pin")
+            new_balance_3 = balance
+
+    elif allow_cashout == "2":
+        print("Thank you for using Telestar Mobile Money!")
+        return balance
+
+    else:
+        print("Invalid Input")
+        return balance
+
+    return new_balance_3
 
 def my_wallet(balance, pin):
-    pass
+    print("My Wallet:")
+    print("1. Top Up Balance")
+    print("2. Check Balance")
+
+    wallet_choice = input("Enter your choice: ")
+
+    if wallet_choice == "1":
+        topUp_amount = float(input("Enter amount to top up your balance: "))
+        new_balance_4 = balance + topUp_amount
+        print(f"Balance top up is successful. New balance: GhS{new_balance_4}")
+        return new_balance_4
+
+    elif wallet_choice == "2":
+        print(f"Your current balance is: GHS{balance}")
+
+    else:
+        print("Invalid Choice")
+        new_balance_4 = balance
+
 
 main()
-
-'''
-def main_menu
-if main_menu == "*150#":
-    print("Welcome to Telestar Mobile Money! Please select an option:")
-    print("1. Transfer Money")
-    print("2. Airtime and Bundles")
-    print("3. Allow Cash Out")
-    print("4. My Wallet")
-    wind1 = input("Enter Your Choice: ")
-    if wind1 == "1":#Transfer Money
-        print("Transfer Money:")
-        print("1. TeleStar Network")
-        print("2. Other Network")
-        wind2 = input("Enter Your Choice:")
-        if wind2 == "1":#Telestr phone No
-            pass
-        elif wind2 == "2":#Other phone No
-            pass
-    elif wind1 == "2":#Airtime and Bundles
-        pass
-    elif wind1 == "3":#Allow Cash Out
-        pass
-    elif wind1 == "4":#My Wallet
-        pass
-'''
