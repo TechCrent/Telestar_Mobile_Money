@@ -64,11 +64,18 @@ def transfer_money(balance):
         #Service Charge
         service_charge = transfer_amount * 0.005
 
-        new_balance = balance - (transfer_amount + e_levy + service_charge)
+        total_deduction = transfer_amount + e_levy + service_charge
 
-        print(f'GHS{transfer_amount:.2f} has been sent successfuly with an E-levy charge of GHS{e_levy}')
+        if total_deduction > balance:
+            print("Insufficient balance")
+            return balance
+
+        new_balance = balance - total_deduction
+
+        print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy}')
         print(f'The service charge is GHS{service_charge:.2f}.')
         print(f'New Balance: GHS{new_balance:.2f}')
+        return new_balance
 
 
     elif network_choice == "2":
@@ -79,7 +86,13 @@ def transfer_money(balance):
         #Service Charge
         service_charge =transfer_amount * 0.075
 
-        new_balance = balance - (transfer_amount + e_levy + service_charge)
+        total_deduction = transfer_amount + e_levy + service_charge
+
+        if total_deduction > balance:
+            print("Insufficient Amount")
+            return balance
+
+        new_balance = balance - total_deduction
 
         print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy}')
         print(f'The service charge is GHS{service_charge:.2f}.')
@@ -101,10 +114,16 @@ def buy_airtime_or_bundles(balance):
 
     if airtime_or_bundle == "1":
         airtime_amount = float(input("Enter the amount to purchase: "))
+
+        if airtime_amount > balance:
+            print("Insufficient Amount")
+            return balance
+
         new_balance_2 = balance - airtime_amount
 
         print(f'GHS{airtime_amount:.2f} airtime has been successfully purchased')
         print(f"New balance: GHS{new_balance_2}")
+        return new_balance_2
 
     elif airtime_or_bundle == "2":
         print("Bundles:")
@@ -115,6 +134,11 @@ def buy_airtime_or_bundles(balance):
         bundle_type = input("Choose your bundle type: ")
 
         if bundle_type == "1":
+
+            if balance < 5:
+                print("Insufficient Amount")
+                return balance
+
             new_balance_2 = balance - 5
 
             print("280 MB Data Bundle successfully purchased")
@@ -122,6 +146,11 @@ def buy_airtime_or_bundles(balance):
             return new_balance_2
 
         elif bundle_type == "2":
+
+            if balance < 10:
+                print("Insufficient Amount")
+                return balance
+
             new_balance_2 = balance - 10
 
             print("667 MB Data Bundle successfully purchased")
@@ -129,6 +158,11 @@ def buy_airtime_or_bundles(balance):
             return new_balance_2
 
         elif bundle_type == "3":
+
+            if balance < 100:
+                print("Insufficient Amount")
+                return balance
+
             new_balance_2 = balance - 100
 
             print("10 GB Data Bundle successfully purchased")
@@ -155,6 +189,12 @@ def cash_out(balance, pin):
     if allow_cashout == "1":
         cashout_amount = float(input("Enter the amount to allow for Cash Out: "))
         user_pin = input("Enter your 4-digit PIN: ")
+        if cashout_amount < balance:
+            print("Insufficient Amount")
+            return balance
+
+
+
         if user_pin == pin:
             new_balance_3 = balance - cashout_amount
             print("Cash Out Successfully allowed")
@@ -179,6 +219,7 @@ def cash_out(balance, pin):
 def my_wallet(balance):
     print("My Wallet:")
     print("1. Top Up Balance")
+    print("2. Check Balance")
     print("2. Check Balance")
 
     wallet_choice = input("Enter your choice: ")
