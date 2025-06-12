@@ -66,13 +66,10 @@ def transfer_money(balance):
 
         new_balance = balance - (transfer_amount + e_levy + service_charge)
 
-        if new_balance <= balance:
-            print(f'GHS{transfer_amount:.2f} has been sent successfuly with an E-levy charge of GHS{e_levy}')
-            print(f'The service charge is GHS{service_charge:.2f}.')
-            print(f'New Balance: GHS{new_balance:.2f}')
-        else:
-            print("Insufficient Amount")
-            return balance
+        print(f'GHS{transfer_amount:.2f} has been sent successfuly with an E-levy charge of GHS{e_levy}')
+        print(f'The service charge is GHS{service_charge:.2f}.')
+        print(f'New Balance: GHS{new_balance:.2f}')
+
 
     elif network_choice == "2":
         recipient_num = input ("Enter the recipient's phone number")
@@ -84,13 +81,10 @@ def transfer_money(balance):
 
         new_balance = balance - (transfer_amount + e_levy + service_charge)
 
-        if new_balance <= balance:
-            print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy}')
-            print(f'The service charge is GHS{service_charge:.2f}.')
-            print(f'New Balance: GHS{new_balance:.2f}')
-        else:
-            print("Insufficient Amount")
-            return balance
+        print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy}')
+        print(f'The service charge is GHS{service_charge:.2f}.')
+        print(f'New Balance: GHS{new_balance:.2f}')
+
     else:
         print("Invalid network choice")
         return balance
@@ -109,12 +103,8 @@ def buy_airtime_or_bundles(balance):
         airtime_amount = float(input("Enter the amount to purchase: "))
         new_balance_2 = balance - airtime_amount
 
-        if new_balance_2 <= balance:
-            print(f'GHS{airtime_amount:.2f} airtime has been successfully purchased')
-            print(f"New balance: GHS{new_balance_2}")
-        else:
-            print("Insufficient Amount")
-            return balance
+        print(f'GHS{airtime_amount:.2f} airtime has been successfully purchased')
+        print(f"New balance: GHS{new_balance_2}")
 
     elif airtime_or_bundle == "2":
         print("Bundles:")
@@ -127,34 +117,23 @@ def buy_airtime_or_bundles(balance):
         if bundle_type == "1":
             new_balance_2 = balance - 5
 
-            if new_balance_2 <= balance:
-                print("280 MB Data Bundle successfully purchased")
-                print(f"New balance: GHS{new_balance_2:.2f}")
-                return new_balance_2
-            else:
-                print("Insufficient Amount")
-                return balance
+            print("280 MB Data Bundle successfully purchased")
+            print(f"New balance: GHS{new_balance_2:.2f}")
+            return new_balance_2
 
         elif bundle_type == "2":
             new_balance_2 = balance - 10
 
-            if new_balance_2 <= balance:
-                print("667 MB Data Bundle successfully purchased")
-                print(f"New balance: GHS{new_balance_2:.2f}")
-                return new_balance_2
-            else:
-                print("Insufficient Amount")
-                return balance
+            print("667 MB Data Bundle successfully purchased")
+            print(f"New balance: GHS{new_balance_2:.2f}")
+            return new_balance_2
 
         elif bundle_type == "3":
             new_balance_2 = balance - 100
 
-            if new_balance_2 <= balance:
-                print("10 GB Data Bundle successfully purchased")
-                print(f"New balance: GHS{new_balance_2:.2f}")
-                return new_balance_2
-            else:
-                print("Insufficient Amount")
+            print("10 GB Data Bundle successfully purchased")
+            print(f"New balance: GHS{new_balance_2:.2f}")
+            return new_balance_2
 
         else:
             print("Invalid Bundle Type Inputted")
@@ -176,19 +155,16 @@ def cash_out(balance, pin):
     if allow_cashout == "1":
         cashout_amount = float(input("Enter the amount to allow for Cash Out: "))
         user_pin = input("Enter your 4-digit PIN: ")
-        if cashout_amount <= balance:
-            if user_pin == pin:
-                new_balance_3 = balance - cashout_amount
-                print("Cash Out Successfully allowed")
-                print(f"New balance: GHS{new_balance_3:.2f}")
-                return new_balance_3
+        if user_pin == pin:
+            new_balance_3 = balance - cashout_amount
+            print("Cash Out Successfully allowed")
+            print(f"New balance: GHS{new_balance_3:.2f}")
+            return new_balance_3
 
-            else:
-                print("Incorrect Pin")
-                new_balance_3 = balance
         else:
-            print("Insufficient Amount")
-            return balance
+            print("Incorrect Pin")
+            new_balance_3 = balance
+
 
     elif allow_cashout == "2":
         print("Thank you for using Telestar Mobile Money!")
