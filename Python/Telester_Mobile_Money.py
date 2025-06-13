@@ -13,9 +13,17 @@ def main():
     # Default Pin
     pin = "7209"
     #Short Code Input
-    code = input("Enter Short Code: ")
-    #Changing Balance
-    balance = main_menu(code,balance,pin)
+
+    attempts = 0
+    while attempts < 3:
+        code = input("Enter Short Code: ")
+        if code == "*150#":
+            balance = main_menu(code,balance,pin)
+            break
+        else:
+            print("Invalid Code")
+            attempts += 1
+
     return
 
 def main_menu(code,balance,pin):
@@ -77,7 +85,7 @@ def transfer_money(balance):
 
         new_balance = balance - total_deduction
 
-        print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy}')
+        print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy:.2f}')
         print(f'The service charge is GHS{service_charge:.2f}.')
         print(f'New Balance: GHS{new_balance:.2f}')
         return new_balance
@@ -104,7 +112,7 @@ def transfer_money(balance):
 
         new_balance = balance - total_deduction
 
-        print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy}')
+        print(f'GHS{transfer_amount:.2f} has been sent successfully with an E-levy charge of GHS{e_levy:.2f}')
         print(f'The service charge is GHS{service_charge:.2f}.')
         print(f'New Balance: GHS{new_balance:.2f}')
 
@@ -129,11 +137,11 @@ def buy_airtime_or_bundles(balance):
             print("Insufficient Amount")
             return balance
 
-        new_balance_2 = balance - airtime_amount
+        new_balance = balance - airtime_amount
 
         print(f'GHS{airtime_amount:.2f} airtime has been successfully purchased')
-        print(f"New balance: GHS{new_balance_2}")
-        return new_balance_2
+        print(f"New balance: GHS{new_balance:.2f}")
+        return new_balance
 
     elif airtime_or_bundle == "2":
         print("Bundles:")
@@ -149,11 +157,11 @@ def buy_airtime_or_bundles(balance):
                 print("Insufficient Amount")
                 return balance
 
-            new_balance_2 = balance - 5
+            new_balance = balance - 5
 
             print("280 MB Data Bundle successfully purchased")
-            print(f"New balance: GHS{new_balance_2:.2f}")
-            return new_balance_2
+            print(f"New balance: GHS{new_balance:.2f}")
+            return new_balance
 
         elif bundle_type == "2":
 
@@ -161,11 +169,11 @@ def buy_airtime_or_bundles(balance):
                 print("Insufficient Amount")
                 return balance
 
-            new_balance_2 = balance - 10
+            new_balance = balance - 10
 
             print("667 MB Data Bundle successfully purchased")
-            print(f"New balance: GHS{new_balance_2:.2f}")
-            return new_balance_2
+            print(f"New balance: GHS{new_balance:.2f}")
+            return new_balance
 
         elif bundle_type == "3":
 
@@ -173,21 +181,21 @@ def buy_airtime_or_bundles(balance):
                 print("Insufficient Amount")
                 return balance
 
-            new_balance_2 = balance - 100
+            new_balance = balance - 100
 
             print("10 GB Data Bundle successfully purchased")
-            print(f"New balance: GHS{new_balance_2:.2f}")
-            return new_balance_2
+            print(f"New balance: GHS{new_balance:.2f}")
+            return new_balance
 
         else:
             print("Invalid Bundle Type Inputted")
-            new_balance_2 = balance
+            new_balance = balance
 
     else:
         print("Invalid Choice")
         return balance
 
-    return new_balance_2
+    return new_balance
 
 
 def cash_out(balance, pin):
@@ -208,14 +216,14 @@ def cash_out(balance, pin):
 
 
         if user_pin == pin:
-            new_balance_3 = balance - cashout_amount
+            new_balance = balance - cashout_amount
             print("Cash Out Successfully allowed")
-            print(f"New balance: GHS{new_balance_3:.2f}")
-            return new_balance_3
+            print(f"New balance: GHS{new_balance:.2f}")
+            return new_balance
 
         else:
             print("Incorrect Pin")
-            new_balance_3 = balance
+            new_balance = balance
 
 
     elif allow_cashout == "2":
@@ -226,7 +234,7 @@ def cash_out(balance, pin):
         print("Invalid Input")
         return balance
 
-    return new_balance_3
+    return new_balance
 
 def my_wallet(balance):
     print("My Wallet:")
@@ -237,17 +245,17 @@ def my_wallet(balance):
 
     if wallet_choice == "1":
         topup_amount = float(input("Enter amount to top up your balance: "))
-        new_balance_4 = balance + topup_amount
-        print(f"Balance top up is successful. New balance: GhS{new_balance_4}")
-        return new_balance_4
+        new_balance = balance + topup_amount
+        print(f"Balance top up is successful. New balance: GhS{new_balance:.2f}")
+        return new_balance
 
     elif wallet_choice == "2":
-        print(f"Your current balance is: GHS{balance}")
+        print(f"Your current balance is: GHS{balance:.2f}")
         return balance
 
     else:
         print("Invalid Choice")
-        new_balance_4 = balance
+        new_balance = balance
 
 
 main()
