@@ -41,7 +41,7 @@ def main_menu(code,balance,pin):
                 print("Invalid Choice")
 
             again = input("Do you want to perform another operation? (yes/no): ").lower()
-            if again != "yes" or "y":
+            if again != "yes" and again != "y":
                 print("Thank you for using Telestar Mobile Money!")
                 break
     else:
@@ -57,7 +57,12 @@ def transfer_money(balance):
     network_choice = input("Enter your transfer choice: ")
 
     if network_choice == "1":
-        recipient_num = input("Enter the recipient's TeleStar phone number")
+        recipient_num = input("Enter the recipient's TeleStar phone number: ")
+
+        if not(len(recipient_num) == 10 and recipient_num.startswith("059")):
+            print("This Number Does Not Exist In The Telestar Network System")
+            return balance
+
         transfer_amount = float(input("Enter the amount to transfer: "))
         # E-levy
         e_levy = transfer_amount * 0.01
@@ -79,7 +84,12 @@ def transfer_money(balance):
 
 
     elif network_choice == "2":
-        recipient_num = input ("Enter the recipient's phone number")
+        recipient_num = input ("Enter the recipient's phone number: ")
+
+        if not(len(recipient_num) == 10 and recipient_num.startswith(("050","026","023"))):
+            print("This Number Does Not Exist In The Telestar Network System")
+            return balance
+
         transfer_amount = float(input("Enter the amount to transfer"))
         #E-levy
         e_levy = transfer_amount * 0.01
@@ -188,8 +198,10 @@ def cash_out(balance, pin):
 
     if allow_cashout == "1":
         cashout_amount = float(input("Enter the amount to allow for Cash Out: "))
+
         user_pin = input("Enter your 4-digit PIN: ")
-        if cashout_amount < balance:
+
+        if balance < cashout_amount:
             print("Insufficient Amount")
             return balance
 
@@ -220,18 +232,18 @@ def my_wallet(balance):
     print("My Wallet:")
     print("1. Top Up Balance")
     print("2. Check Balance")
-    print("2. Check Balance")
 
     wallet_choice = input("Enter your choice: ")
 
     if wallet_choice == "1":
-        topUp_amount = float(input("Enter amount to top up your balance: "))
-        new_balance_4 = balance + topUp_amount
+        topup_amount = float(input("Enter amount to top up your balance: "))
+        new_balance_4 = balance + topup_amount
         print(f"Balance top up is successful. New balance: GhS{new_balance_4}")
         return new_balance_4
 
     elif wallet_choice == "2":
         print(f"Your current balance is: GHS{balance}")
+        return balance
 
     else:
         print("Invalid Choice")
